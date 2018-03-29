@@ -1,12 +1,10 @@
-﻿@using Account.CdWaddell.Controllers
-@using Account.CdWaddell.Models.Client
-@model Account.CdWaddell.Models.Client.ScopesViewModel
+﻿@using Account.CdWaddell.Models.Client
+@model ScopesViewModel
 
 @{
     ViewBag.Title = "Manage Scopes";
     Layout = "_Layout";
     ViewBag.Parent = null;
-    ViewBag.ScopeType = ScopeType.Identity;
 }
 
 <h2>Manage Scopes</h2>
@@ -14,7 +12,6 @@
 <ul class="list-group">
     @if (!Model.ApiResources.Any())
     {
-        ViewBag.ScopeType = ScopeType.ApiResource;
         <li class="list-group-item"><i>no apis found</i></li>
     }
     @foreach (var resource in Model.ApiResources)
@@ -30,10 +27,7 @@
             </form>
         </li>
         @Html.Partial("_Scope", resource.ApiResourceScope)
-        <li class="list-group-item">
-            <h3>@resource.ApiResourceScope.ScopeName API Scopes:</h3>
-        </li>
-        @Html.Partial("_Scopes", resource.ApiScopes)
+        @Html.Partial("_Scopes", resource.ApiScopes);
     }
     <li class="list-group-item">
         <form asp-action="SaveScope" asp-controller="Client" method="post">

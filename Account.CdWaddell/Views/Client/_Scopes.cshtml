@@ -1,7 +1,7 @@
 ﻿@using Account.CdWaddell.Models.Client
-@model ScopeViewModel[]
+@model ScopeListViewModel
 @{
-    ScopeType scopeType = ViewBag.ScopeType;
+    ScopeType scopeType = Model.ScopeType;
 }
 <ul class="list-group">
     <li class="list-group-item"><h3>@scopeType.ToString() Scopes:</h3></li>

@@ -190,7 +190,7 @@ namespace Account.CdWaddell.Controllers
 
             var model = new ScopesViewModel
             {
-                IdentityResources =
+                IdentityResources = new ScopeListViewModel(
                     _context.IdentityResources
                         .Include(x => x.UserClaims)
                         .Select(x => new ScopeViewModel
@@ -198,8 +198,7 @@ namespace Account.CdWaddell.Controllers
                             ScopeName = x.Name,
                             ScopeType = ScopeType.Identity,
                             ClaimNames = x.UserClaims.Select(y => y.Type).ToArray()
-                        })
-                        .ToArray(),
+                        })){ScopeType = ScopeType.Identity},
                 ApiResources =
                     _context.ApiResources
                         .Include(x => x.UserClaims)
@@ -214,14 +213,15 @@ namespace Account.CdWaddell.Controllers
                                     ScopeType = ScopeType.ApiResource,
                                     ClaimNames = x.UserClaims.Select(y => y.Type).ToArray()
                                 },
-                                ApiScopes = x.Scopes.Select(y => 
+                                ApiScopes = new ScopeListViewModel(
+                                    x.Scopes.Select(y => 
                                     new ScopeViewModel
                                     {
                                         ScopeName = y.Name,
                                         ScopeType = ScopeType.Api,
                                         ClaimNames = y.UserClaims.Select(z => z.Type).ToArray()
                                     }
-                                ).ToArray()
+                                )) {ScopeType = ScopeType.Api}
                             }
                         ).ToArray()
             };

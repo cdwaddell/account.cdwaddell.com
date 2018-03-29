@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Account.CdWaddell.Controllers;
 
 namespace Account.CdWaddell.Models.Client
 {
     public class ScopesViewModel
     {
         public ApiResourceViewModel[] ApiResources { get; set; }
-        public ScopeViewModel[] IdentityResources { get; set; }
+        public ScopeListViewModel IdentityResources { get; set; }
     }
 
+    public class ScopeListViewModel:List<ScopeViewModel>
+    {
+        public ScopeType ScopeType { get; set; }
+        public ScopeListViewModel(IEnumerable<ScopeViewModel> scopes):base(scopes){ }
+    }
 
     public enum ScopeType
     {
@@ -52,6 +56,6 @@ namespace Account.CdWaddell.Models.Client
     public class ApiResourceViewModel
     {
         public ScopeViewModel ApiResourceScope { get; set; }
-        public ScopeViewModel[] ApiScopes { get; set; }
+        public ScopeListViewModel ApiScopes { get; set; }
     }
 }
